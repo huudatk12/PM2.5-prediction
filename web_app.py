@@ -36,7 +36,7 @@ modelTraining = st.container()
 prediction =st.container()
 interative = st.container()
 image = Image.open('image/hanoi.jpg')
-image2 = Image.open('C:/Users/Admin/Desktop/Project_CV_Ex/Final_Froject/image/tphcm.jpg')
+image2 = Image.open('image/tphcm.jpg')
 
 with header:
 	st.title("PM2.5 Prediction Web App")
@@ -46,14 +46,14 @@ with dataset:
 	st.header('Data input:')
 	option = st.sidebar.selectbox('Lựa chọn thành phố', (' ','HN', 'TPHCM'))
 	if option == 'HN':
-		dataset = pd.read_csv('C:/Users/Admin/Desktop/Project_CV_Ex/Final_Froject/data/HN.csv')
+		dataset = pd.read_csv('data/HN.csv')
 		st.write(dataset)
 		st.sidebar.image(image, caption='TP. Hà Nội')
 		st.subheader('Biểu đồ biểu diễn 50 giá trị dại diện cho dữ liệu nồng độ PM2.5 tại TP Hà Nội /theo ngày')
 		pm25 = pd.DataFrame(dataset['pm25'].value_counts()).head(50)
 		st.line_chart(dataset.rename(columns={'date': 'index'}).set_index('index'))
 	elif option == 'TPHCM':
-		dataset = pd.read_csv('C:/Users/Admin/Desktop/Project_CV_Ex/Final_Froject/data/TPHCM.csv')
+		dataset = pd.read_csv('data/TPHCM.csv')
 		# header = 0, infer_datetime_format = True, index_col = 0
 		st.write(dataset)
 		st.sidebar.image(image2, caption='TP. Hồ Chí Minh')
@@ -104,7 +104,7 @@ with modelTraining:
 			model.compile(optimizer='adam', loss='mae')
 			model.summary()
 			history = model.fit(trainX, trainY, epochs=30, batch_size=16, validation_split=0.1, verbose=0)
-			model.save('C:/Users/Admin/Desktop/Project_CV_Ex/Final_Froject/model/lstm_model.h5')
+			model.save('model/lstm_model.h5')
 			yhat = model
 			# data_load_state.text('Loading....done!')
 		else:
@@ -119,7 +119,7 @@ with prediction:
 	if option == 'HN' or option == 'TPHCM':
 		if n_part != 0:
 			if n_future != 0:
-				model1 = load_model('C:/Users/Admin/Desktop/Project_CV_Ex/Final_Froject/model/lstm_model.h5')
+				model1 = load_model('model/lstm_model.h5')
 				train_dates = pd.to_datetime(dataset['date'])
 
 
