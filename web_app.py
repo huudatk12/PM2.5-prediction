@@ -97,7 +97,7 @@ with modelTraining:
 
 			trainX, trainY = np.array(trainX), np.array(trainY)
 			model = Sequential()
-			model.add(LSTM(64, activation='relu', input_shape=(trainX.shape[1], trainX.shape[2]), return_sequences=True))
+			model.add(LSTM(64, activation='relu', input_shape=(trainX.shape[1], trainX.shape[2]), return_sequences=False))
 			model.add(LSTM(32, activation='relu', return_sequences=False))
 			model.add(Dropout(0.2))
 			model.add(Dense(trainY.shape[1]))
@@ -121,7 +121,6 @@ with prediction:
 			if n_future != 0:
 				model1 = load_model('model/lstm_model.h5')
 				train_dates = pd.to_datetime(dataset['date'])
-
 
 				forecast_period_dates = pd.date_range(list(train_dates)[-1], periods=n_future, freq='1d').tolist()
 				forecast = model1.predict(trainX[-n_future:])
