@@ -35,7 +35,7 @@ features = st.container()
 modelTraining = st.container()
 prediction =st.container()
 interative = st.container()
-image = Image.open('/image/hanoi.jpg')
+image = Image.open('image/hanoi.jpg')
 image2 = Image.open('C:/Users/Admin/Desktop/Project_CV_Ex/Final_Froject/image/tphcm.jpg')
 
 with header:
